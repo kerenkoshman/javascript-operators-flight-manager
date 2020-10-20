@@ -21,7 +21,40 @@ function Flights() {
     }
     return flights;
   }
-  return { calculateNumberOfFlights };
+
+  function checkAircraftRevision(
+    distanceLimit,
+    coveredDistance1,
+    coveredDistance2,
+    coveredDistance3,
+    coveredDistance4,
+    coveredDistance5
+  ) {
+    let totalDistacne;
+    totalDistance =
+      coveredDistance1 +
+      coveredDistance2 +
+      coveredDistance3 +
+      coveredDistance4 +
+      coveredDistance5;
+    if (totalDistance > distanceLimit) {
+      throw new Error(
+        "Flight maximum allowed distance (" +
+          distanceLimit +
+          ") exceeded. No flight is allowed any longer, you need to make the revision immediately."
+      );
+    }
+
+    if (totalDistance <= distanceLimit / 2) {
+      return "The revision should be done within the next 3 months";
+    } else if (totalDistance <= (3 * distanceLimit) / 4) {
+      return "The revision needs to be done within the next 2 months";
+    } else {
+      return "The revision needs to be done within the next month";
+    }
+  }
+
+  return { calculateNumberOfFlights, checkAircraftRevision };
 }
 
 module.exports = Flights();
